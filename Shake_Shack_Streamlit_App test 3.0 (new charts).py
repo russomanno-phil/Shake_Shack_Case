@@ -221,7 +221,7 @@ if section == "1. Executive Recommendation":
     st.header("1. Executive Recommendation")
     
     st.markdown("""
-    [cite_start]**My recommendation is that Shake Shack can achieve the stated goal of 1,500 company-operated locations** [cite: 5, 27] [cite_start]across geographic regions with large populations, high incomes, and lower QSR saturation[cite: 5]. 
+    **My recommendation is that Shake Shack can achieve the stated goal of 1,500 company-operated locations** across geographic regions with large populations, high incomes, and lower QSR saturation. 
     
     The **top 10 target states** are:
     """)
@@ -237,10 +237,10 @@ if section == "1. Executive Recommendation":
     
     st.markdown("""
     These markets represent the largest collections of **demographic depth**, **favorable competition intensity**, 
-    [cite_start]and **whitespace opportunities** compared to the mature benchmarks of New York and New Jersey[cite: 7, 24].
+    and **whitespace opportunities** compared to the mature benchmarks of New York and New Jersey.
     
-    [cite_start]Based on the demand scoring model, these states alone can support **more than half of new company-operated Shacks**[cite: 8, 21], 
-    [cite_start]representing a substantial share of the ~1,000 additional units needed to reach management's long-term target[cite: 8].
+    Based on the demand scoring model, these states alone can support **more than half of new company-operated Shacks**, 
+    representing a substantial share of the ~1,000 additional units needed to reach management's long-term target.
     """)
     
     # Top 10 Recommendations Map
@@ -315,7 +315,7 @@ if section == "1. Executive Recommendation":
     )
     
     fig_rec_map.update_layout(
-        [cite_start]title_text="Recommended New Company-Owned Shake Shack Units by State: Top 10 [cite: 6, 18]",
+        title_text="Recommended New Company-Owned Shake Shack Units by State: Top 10",
         title_x=0.5,
         margin=dict(l=20, r=90, t=60, b=20)
     )
@@ -341,12 +341,12 @@ elif section == "2. Analytical Approach":
     st.header("2. Overview of Analytical Approach")
     
     st.markdown("""
-    [cite_start]To identify the credibility of Shake Shack's potential roadmap, I developed a **data-driven framework** emphasizing population, income, urban density, competitive saturation, and current Shake Shack penetration[cite: 10].
+    To identify the credibility of Shake Shack's potential roadmap, I developed a **data-driven framework** emphasizing population, income, urban density, competitive saturation, and current Shake Shack penetration.
     
     **Data Sources Merged:**
-    - [cite_start]Census ACS (population/income) [cite: 11]
-    - [cite_start]NAICS 7225 concentration (competitive saturation) [cite: 11]
-    - [cite_start]Shake Shack's 10-K/Q disclosures [cite: 11]
+    - Census ACS (population/income)
+    - NAICS 7225 concentration (competitive saturation)  
+    - Shake Shack's 10-K/Q disclosures
     
     **Three Diagnostic Metrics Created:**
     """)
@@ -356,23 +356,23 @@ elif section == "2. Analytical Approach":
         st.info("""
         **1. Shacks per Million Residents**
         
-        [cite_start]A penetration proxy measuring maturity thresholds [cite: 13]
+        A penetration proxy measuring maturity thresholds
         """)
     with col2:
         st.info("""
         **2. QSR per 100k Residents**
         
-        [cite_start]A competition density benchmark for market saturation [cite: 14]
+        A competition density benchmark for market saturation
         """)
     with col3:
         st.info("""
         **3. Demand Score**
         
-        [cite_start]Normalized composite of median income, population density, and competition [cite: 15]
+        Normalized composite of median income, population density, and competition
         """)
     
     st.markdown("""
-    [cite_start]These metrics are crucial for identifying the optimal allocation of new Shacks in whitespace markets[cite: 17].
+    These metrics are crucial for identifying the optimal allocation of new Shacks in whitespace markets.
     """)
     
     # Side-by-side Penetration vs QSR Competition Map
@@ -431,7 +431,7 @@ elif section == "2. Analytical Approach":
     )
     
     fig_dual.update_layout(
-        [cite_start]title_text="<b>Shake Shack Penetration vs QSR Competition (State-Level) [cite: 16]</b>",
+        title_text="<b>Shake Shack Penetration vs QSR Competition (State-Level)</b>",
         title_x=0.5,
         title_y=0.97,
         margin=dict(l=0, r=40, t=110, b=0),
@@ -452,7 +452,7 @@ elif section == "2. Analytical Approach":
     # Demand Score Components
     st.subheader("Demand Score Formula")
     st.markdown("""
-    [cite_start]The **Demand Score** is calculated as a weighted z-score composite[cite: 15]:
+    The **Demand Score** is calculated as a weighted z-score composite:
     
     ```
     Demand Score = 0.50 × Income_z + 0.30 × Density_z − 0.20 × QSR_z
@@ -494,7 +494,7 @@ elif section == "2. Analytical Approach":
     min_score = df_demand["demand_score"].min()
     
     fig_demand.update_layout(
-        [cite_start]title=f"Demand Score by State (Top {top_n}) [cite: 18]",
+        title=f"Demand Score by State (Top {top_n})",
         title_x=0.5,
         xaxis_title="State",
         yaxis_title="Demand Score (z-score composite)",
@@ -531,20 +531,20 @@ elif section == "3. Whitespace Analysis":
     st.header("3. Whitespace Analysis")
     
     st.markdown(f"""
-    [cite_start]The whitespace model quantifies **underpenetration relative to demographic fundamentals**[cite: 19].
+    The whitespace model quantifies **underpenetration relative to demographic fundamentals**.
     
     **Methodology:**
-    - [cite_start]Mature benchmark states: **New York & New Jersey** [cite: 7]
+    - Mature benchmark states: **New York & New Jersey**
     - Mature penetration density: **{mature_density:.2f}** shacks per million
-    - [cite_start]Target density (70% of mature): **{target_density:.2f}** shacks per million [cite: 24]
+    - Target density (70% of mature): **{target_density:.2f}** shacks per million
     
     **Key Findings:**
     - Texas, Florida and California performed strongly due to strong in-migration, suburban expansion, 
-      [cite_start]and low current Shake Shack density[cite: 19].
+      and low current Shake Shack density.
     - Other top 10 states share similar characteristics: affluent consumers, strong population density, 
-      [cite_start]and diversified cuisine offerings[cite: 20].
+      and diversified cuisine offerings.
     - The model suggests **60% of future company-operated units** should be in the 10 highlighted states, 
-      [cite_start]with 40% spread across the broader United States as saturation normalizes[cite: 21].
+      with 40% spread across the broader United States as saturation normalizes.
     """)
     
     # Whitespace Map
@@ -603,7 +603,7 @@ elif section == "3. Whitespace Analysis":
     )
     
     fig_map.update_layout(
-        [cite_start]title="Recommended Net New Shake Shack Units — U.S. Map [cite: 18]",
+        title="Recommended Net New Shake Shack Units — U.S. Map",
         title_x=0.5,
         margin=dict(l=20, r=120, t=60, b=20)
     )
@@ -632,7 +632,7 @@ elif section == "3. Whitespace Analysis":
     max_val = top10["recommended_adds"].max()
     
     fig_whitespace.update_layout(
-        [cite_start]title="White Space by State (Top 10) [cite: 65, 66]",
+        title="White Space by State (Top 10)",
         title_x=0.5,
         xaxis_title="State",
         yaxis_title="Recommended Adds",
@@ -677,21 +677,21 @@ elif section == "4. Feasibility: Path to 1,500 Units":
     st.header("4. Feasibility of 1,500 Unit Target")
     
     st.markdown("""
-    [cite_start]The feasibility analysis treats the **1,500-unit goal as a market-implied carrying capacity**[cite: 23].
+    The feasibility analysis treats the **1,500-unit goal as a market-implied carrying capacity**.
     
     **Methodology:**
-    - [cite_start]Applying 70% of the mature market's penetration to the full US population [cite: 24]
-    - [cite_start]Results in a ceiling of **~1,550 units** — confirming the goal is attainable [cite: 24]
+    - Applying 70% of the mature market's penetration to the full US population
+    - Results in a ceiling of **~1,550 units** — confirming the goal is attainable
     
     **Three Scenarios Modeled:**
-    - [cite_start]**Base Case:** Management expectations from January ICR conference (low-teens growth) [cite: 26]
-    - [cite_start]**Bull Case:** Accelerated execution with favorable real estate and kiosk adoption [cite: 27]
-    - [cite_start]**Bear Case:** Slower rollout due to execution challenges [cite: 27]
+    - **Base Case:** Management expectations from January ICR conference (low-teens growth)
+    - **Bull Case:** Accelerated execution with favorable real estate and kiosk adoption
+    - **Bear Case:** Slower rollout due to execution challenges
     
     **Critical Execution Drivers:**
-    - [cite_start]Kiosk adaptation [cite: 28]
-    - [cite_start]Suburban drive-thru rollout [cite: 28]
-    - [cite_start]Real estate availability [cite: 28]
+    - Kiosk adaptation
+    - Suburban drive-thru rollout
+    - Real estate availability
     """)
     
     # Scenario parameters
@@ -886,11 +886,11 @@ elif section == "5. Competitive Context":
     
     st.markdown("""
     Shake Shack competes in the **premium fast-casual space** as opposed to mass QSR, making 
-    [cite_start]**Five Guys, BurgerFi, Smashburger, and Chipotle** more relevant comparables than McDonald's and Wendy's[cite: 30].
+    **Five Guys, BurgerFi, Smashburger, and Chipotle** more relevant comparables than McDonald's and Wendy's.
     
     States with heavy QSR clustering (Midwest, parts of Northeast) present higher saturation risk, 
     but demand score analysis suggests the target customer is fairly unpenetrated in **high income, 
-    [cite_start]fast-growing markets** such as the Sun Belt and Pacific Coast[cite: 32].
+    fast-growing markets** such as the Sun Belt and Pacific Coast.
     """)
     
     # Peer Comparison Chart - FIX APPLIED: Increased bottom margin to 180px and footnote to y=-0.5
@@ -938,7 +938,7 @@ elif section == "5. Competitive Context":
     max_val = df_peers["total_locations"].max()
     
     fig_peers.update_layout(
-        [cite_start]title="Peer Comparison (Total Locations) [cite: 29]",
+        title="Peer Comparison (Total Locations)",
         title_x=0.5,
         xaxis_tickangle=-30,
         yaxis=dict(
@@ -1005,7 +1005,7 @@ elif section == "5. Competitive Context":
         max_margin = df_margins_sorted["restaurant_margin_pct"].max()
         
         fig_margins.update_layout(
-            title="Rest. [cite_start]Margins vs Peers [cite: 31]", # Shortened
+            title="Rest. Margins vs Peers", # Shortened
             title_x=0.5, 
             yaxis_title="Margin (%)",
             xaxis_title="", 
@@ -1060,7 +1060,7 @@ elif section == "5. Competitive Context":
         min_margin = min(margins)
         
         fig_margin_trend.update_layout(
-            [cite_start]title="Margin Expansion ('22-'24) [cite: 67]", # Shortened
+            title="Margin Expansion ('22-'24)", # Shortened
             title_x=0.5, 
             # xaxis_title="Year", # REMOVED: Redundant and overlaps
             yaxis_title="Margin (%)",
@@ -1091,7 +1091,7 @@ elif section == "5. Competitive Context":
     st.info("""
     **Key Insight:** Restaurant-level margin benchmarking shows Shake Shack gaining ground (21.4%), 
     but not quite up to Chipotle's level (26.7%). The margin expansion trend from 17.5% to 21.4% 
-    [cite_start]over 2022-2024 highlights operational efficiencies[cite: 31].
+    over 2022-2024 highlights operational efficiencies.
     """)
 
 # =============================================================================
@@ -1101,29 +1101,29 @@ elif section == "6. Investment Applications":
     st.header("6. Investment Applications")
     
     st.markdown("""
-    [cite_start]From a **long/short investor's perspective**, the unit economics align with feasibility for long-term expansion[cite: 34].
+    From a **long/short investor's perspective**, the unit economics align with feasibility for long-term expansion.
     """)
     
     # Key valuation metrics
     col1, col2, col3 = st.columns(3)
     with col1:
-        [cite_start]st.metric("Market Cap", "$3.42B [cite: 35]")
+        st.metric("Market Cap", "$3.42B")
     with col2:
-        [cite_start]st.metric("Company-Operated Stores", "359 [cite: 35]")
+        st.metric("Company-Operated Stores", "359")
     with col3:
-        [cite_start]st.metric("Implied Value per Unit", "~$9.5M [cite: 36]")
+        st.metric("Implied Value per Unit", "~$9.5M")
     
     st.markdown("""
     With **strong margins despite input cost increases**, Shake Shack potentially is undervalued 
-    [cite_start]from their 52-week high[cite: 36]. This creates a favorable setup if Shake Shack can execute on the growth 
-    [cite_start]plan management is targeting[cite: 37].
+    from their 52-week high. This creates a favorable setup if Shake Shack can execute on the growth 
+    plan management is targeting.
     
     **Key Success Indicators:**
-    - [cite_start]Kiosk conversion rates [cite: 38]
-    - [cite_start]Real estate selection quality [cite: 38]
-    - [cite_start]Operational throughput improvements [cite: 38]
+    - Kiosk conversion rates
+    - Real estate selection quality
+    - Operational throughput improvements
     
-    [cite_start]Coupled with base case growth expectations, these present **strong upside potential**[cite: 38].
+    Coupled with base case growth expectations, these present **strong upside potential**.
     """)
     
     # Revenue Growth vs Store Count - FIX APPLIED: Revenue labels INSIDE bars, increased Y axis range for clear separation
@@ -1190,7 +1190,7 @@ elif section == "6. Investment Applications":
     max_units = rev_data["units"].max()
     
     fig_rev.update_layout(
-        [cite_start]title="Revenue Growth vs. Store Count [cite: 68]",
+        title="Revenue Growth vs. Store Count",
         title_x=0.5,
         yaxis=dict(
             title="Revenue ($M)",
@@ -1258,7 +1258,7 @@ elif section == "6. Investment Applications":
     
     st.plotly_chart(fig_rev, use_container_width=True)
     
-    [cite_start]st.caption("**Evidence of scaling economics:** Revenue has grown from $523M to $1.31B (150%+ growth) while units grew from 183 to 329 (80% growth), demonstrating strong same-store sales growth alongside unit expansion[cite: 68].")
+    st.caption("**Evidence of scaling economics:** Revenue has grown from $523M to $1.31B (150%+ growth) while units grew from 183 to 329 (80% growth), demonstrating strong same-store sales growth alongside unit expansion.")
 
 # =============================================================================
 # SECTION 7: CONCLUSION
@@ -1268,61 +1268,61 @@ elif section == "7. Conclusion":
     
     st.markdown("""
     The analysis supports the view that **Shake Shack has a credible path to achieving the 1,500 unit target**, 
-    [cite_start]and management's excitement is grounded in demographic and competitive fundamentals[cite: 40].
+    and management's excitement is grounded in demographic and competitive fundamentals.
     
     **Strongest Prospective Markets:**
-    - [cite_start]Favorable population dynamics [cite: 41]
-    - [cite_start]Premium income profiles [cite: 41] 
-    - [cite_start]Low brand penetration [cite: 41]
+    - Favorable population dynamics
+    - Premium income profiles 
+    - Low brand penetration
     
     **Recommended Rollout Strategy:**
-    - [cite_start]**Primary focus:** Texas, Florida, and California [cite: 42]
-    - [cite_start]**Complementary expansion:** Sun Belt, select Midwestern states, and Pacific Northwest [cite: 42]
+    - **Primary focus:** Texas, Florida, and California
+    - **Complementary expansion:** Sun Belt, select Midwestern states, and Pacific Northwest
     
     **Investment Perspective:**
-    - [cite_start]Current per-unit valuation is attractive [cite: 43]
-    - [cite_start]Meaningful whitespace remains [cite: 43]
-    - [cite_start]Restaurant-level margins are expanding [cite: 43]
-    - [cite_start]This provides a **compelling long-duration growth story** [cite: 43]
+    - Current per-unit valuation is attractive
+    - Meaningful whitespace remains
+    - Restaurant-level margins are expanding
+    - This provides a **compelling long-duration growth story**
     
     **Key to Success:**
-    - [cite_start]Executing a **kiosk-heavy, suburban-focused strategy** is critical to unlocking Shake Shack's full IRR potential [cite: 44]
+    - Executing a **kiosk-heavy, suburban-focused strategy** is critical to unlocking Shake Shack's full IRR potential
     """)
     
     st.divider()
     
-    [cite_start]st.subheader("What I Would Do in the Real Environment [cite: 45]")
+    st.subheader("What I Would Do in the Real Environment")
     
     st.markdown("""
-    [cite_start]In the interest of brevity, here are additional measures I would take in a professional environment[cite: 46]:
+    In the interest of brevity, here are additional measures I would take in a professional environment:
     """)
     
     col1, col2 = st.columns(2)
     
     with col1:
         st.markdown("""
-        [cite_start]**1. Direct Engagement with Shake Shack Management [cite: 48]**
-        - [cite_start]How management scores real estate sites [cite: 49]
-        - [cite_start]Expected mix between drive-thru, in-line, and urban formats [cite: 50]
-        - [cite_start]Regional differences in construction timelines and COGS inflation [cite: 51]
+        **1. Direct Engagement with Shake Shack Management**
+        - How management scores real estate sites
+        - Expected mix between drive-thru, in-line, and urban formats
+        - Regional differences in construction timelines and COGS inflation
         
-        **2. [cite_start]Direct Engagement with Team Analysts [cite: 52]**
-        - [cite_start]Sanity check estimates and assumptions [cite: 53]
-        - [cite_start]Dig deeper into valuation model gaps [cite: 54]
-        - [cite_start]Leverage experience for future analysis [cite: 55]
+        **2. Direct Engagement with Team Analysts**
+        - Sanity check estimates and assumptions
+        - Dig deeper into valuation model gaps
+        - Leverage experience for future analysis
         """)
     
     with col2:
         st.markdown("""
-        [cite_start]**3. Leverage Sell-Side and Other Sources [cite: 57]**
-        - [cite_start]Sentiment about expansion from sell-side [cite: 58]
-        - [cite_start]Any disconnect between management and execution [cite: 59]
-        - [cite_start]Information from former Shake Shack regional managers [cite: 60]
+        **3. Leverage Sell-Side and Other Sources**
+        - Sentiment about expansion from sell-side
+        - Any disconnect between management and execution
+        - Information from former Shake Shack regional managers
         
-        **4. [cite_start]Validate Demand Score with Local Economics [cite: 61]**
-        - [cite_start]CBRE retail vacancy rates [cite: 62]
-        - [cite_start]Foot traffic patterns [cite: 63]
-        - [cite_start]Household discretionary spend trends [cite: 64]
+        **4. Validate Demand Score with Local Economics**
+        - CBRE retail vacancy rates
+        - Foot traffic patterns
+        - Household discretionary spend trends
         """)
 
 # =============================================================================

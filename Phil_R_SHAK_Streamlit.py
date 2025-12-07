@@ -466,8 +466,7 @@ elif section == "2. Analytical Approach":
     - **−20% weight** on QSR Competition (higher competition = lower attractiveness)
     """)
     
-    # Demand Score Chart
-    st.subheader("Demand Score by State (Top 20)")
+    # Demand Score Chart - FIXED: removed duplicate title, fixed legend position, extended y-axis for negative labels
     top_n = 20
     df_demand = df.sort_values("demand_score", ascending=False).head(top_n)
     
@@ -492,39 +491,48 @@ elif section == "2. Analytical Approach":
         name="Demand Score"
     ))
     
-    # Calculate proper y-axis range
+    # Calculate proper y-axis range - extend both directions for labels
     max_score = df_demand["demand_score"].max()
     min_score = df_demand["demand_score"].min()
     
     fig_demand.update_layout(
-        title=f"Demand Score by State (Top {top_n})",
-        title_x=0.5,
+        # No title here - using st.subheader above instead to avoid duplication
         xaxis_title="State",
         yaxis_title="Demand Score (z-score composite)",
         yaxis=dict(
-            range=[min(0, min_score * 1.1), max_score * 1.18],
+            range=[min_score - 0.3, max_score + 0.25],  # Extended range for negative labels
             gridcolor="lightgray",
             gridwidth=0.5
         ),
         bargap=0.2,
-        uniformtext_minsize=9,
+        uniformtext_minsize=8,
         uniformtext_mode="hide",
         plot_bgcolor="white",
         hovermode="x unified",
-        xaxis_tickangle=-45, 
-        annotations=[
-            dict(
-                text="<b>■</b> Top 10 Target States  <b style='color:#7AB800'>■</b> Other States",
-                xref="paper", yref="paper",
-                x=0.5, y=-0.7,
-                showarrow=False,
-                font=dict(size=11),
-                align="center"
-            )
-        ],
-        margin=dict(b=220)
+        xaxis_tickangle=-45,
+        # Legend positioned at top right, inside the chart
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="center",
+            x=0.5,
+            bgcolor="rgba(255,255,255,0.8)"
+        ),
+        margin=dict(l=60, r=40, t=60, b=120)  # Reduced bottom margin since legend moved to top
     )
     
+    # Add custom legend using shapes and annotations
+    fig_demand.add_annotation(
+        text="<b>■</b> Top 10 Target States   <span style='color:#7AB800'><b>■</b></span> Other States",
+        xref="paper", yref="paper",
+        x=0.5, y=1.08,
+        showarrow=False,
+        font=dict(size=12),
+        align="center"
+    )
+    
+    st.subheader("Demand Score by State (Top 20)")
     st.plotly_chart(fig_demand, use_container_width=True)
 
 # =============================================================================

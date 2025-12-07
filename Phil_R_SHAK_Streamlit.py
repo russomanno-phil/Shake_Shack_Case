@@ -218,10 +218,10 @@ state_centroids = {
 # SECTION 1: EXECUTIVE RECOMMENDATION
 # =============================================================================
 if section == "1. Executive Recommendation":
-    st.header("1. Executive Recommendation")
+    st.header("1. Recommendation")
     
     st.markdown("""
-    **My recommendation is that Shake Shack can achieve the stated goal of 1,500 company-operated locations** across geographic regions with large populations, high incomes, and lower QSR saturation. 
+    Shake Shack can achieve the stated goal of 1,500 company-operated locations across the region of states with large populations, high incomes, and lower quick-service restaurant saturation.
     
     The **top 10 target states** are:
     """)
@@ -236,10 +236,11 @@ if section == "1. Executive Recommendation":
             st.success(f"**{state}**")
     
     st.markdown("""
-    These markets represent the largest collections of **demographic depth**, **favorable competition intensity**, 
-    and **whitespace opportunities** compared to the mature benchmarks of New York and New Jersey.
+    These markets offer the deepest demographic data, the most favorable competition intensity, 
+    and the most ideal whitespace opportunities compared to the mature benchmarks of New York and New Jersey.
     
-    Based on the demand scoring model, these states alone can support **more than half of new company-operated Shacks**, 
+    Based on the model that included a feasible penetration rate and state-level demand scoring, 
+    these states alone can support **more than half of the new company-operated Shacks**, 
     representing a substantial share of the ~1,000 additional units needed to reach management's long-term target.
     """)
     
@@ -341,7 +342,8 @@ elif section == "2. Analytical Approach":
     st.header("2. Overview of Analytical Approach")
     
     st.markdown("""
-    To identify the credibility of Shake Shack's potential roadmap, I developed a **data-driven framework** emphasizing population, income, urban density, competitive saturation, and current Shake Shack penetration.
+    To assess the credibility of Shake Shack's potential roadmap, I developed a **data-driven framework** 
+    that emphasizes population, income, urban density, competitive saturation, and current Shake Shack penetration.
     
     **Data Sources Merged:**
     - Census ACS (population/income)
@@ -368,11 +370,12 @@ elif section == "2. Analytical Approach":
         st.info("""
         **3. Demand Score**
         
-        Normalized composite of median income, population density, and competition
+        A normalized composite of median income, population density, and competition. 
+        This metric is used to adjust the theoretical maximum unit capacity.
         """)
     
     st.markdown("""
-    These metrics are crucial for identifying the optimal allocation of new Shacks in whitespace markets.
+    These metrics were all crucial for being able to identify the optimal allocation of new Shacks in the whitespace.
     """)
     
     # Side-by-side Penetration vs QSR Competition Map
@@ -463,7 +466,7 @@ elif section == "2. Analytical Approach":
     - **−20% weight** on QSR Competition (higher competition = lower attractiveness)
     """)
     
-    # Demand Score Chart - FIX APPLIED: Increased bottom margin to 220px and legend to y=-0.7
+    # Demand Score Chart
     st.subheader("Demand Score by State (Top 20)")
     top_n = 20
     df_demand = df.sort_values("demand_score", ascending=False).head(top_n)
@@ -499,7 +502,7 @@ elif section == "2. Analytical Approach":
         xaxis_title="State",
         yaxis_title="Demand Score (z-score composite)",
         yaxis=dict(
-            range=[min(0, min_score * 1.1), max_score * 1.18],  # Add headroom for labels
+            range=[min(0, min_score * 1.1), max_score * 1.18],
             gridcolor="lightgray",
             gridwidth=0.5
         ),
@@ -513,13 +516,13 @@ elif section == "2. Analytical Approach":
             dict(
                 text="<b>■</b> Top 10 Target States  <b style='color:#7AB800'>■</b> Other States",
                 xref="paper", yref="paper",
-                x=0.5, y=-0.7, # FIX: Moved further down to clear labels
+                x=0.5, y=-0.7,
                 showarrow=False,
                 font=dict(size=11),
                 align="center"
             )
         ],
-        margin=dict(b=220) # FIX: Significantly increased bottom margin
+        margin=dict(b=220)
     )
     
     st.plotly_chart(fig_demand, use_container_width=True)
@@ -539,12 +542,12 @@ elif section == "3. Whitespace Analysis":
     - Target density (70% of mature): **{target_density:.2f}** shacks per million
     
     **Key Findings:**
-    - Texas, Florida and California performed strongly due to strong in-migration, suburban expansion, 
+    - Texas, Florida and California performed strongly due to the strongest in-migration, suburban expansion, 
       and low current Shake Shack density.
-    - Other top 10 states share similar characteristics: affluent consumers, strong population density, 
+    - Other states in the top 10 share similar market characteristics: affluent consumers, strong population density, 
       and diversified cuisine offerings.
     - The model suggests **60% of future company-operated units** should be in the 10 highlighted states, 
-      with 40% spread across the broader United States as saturation normalizes.
+      with the remaining 40% spread across the broader United States as saturation normalizes.
     """)
     
     # Whitespace Map
@@ -636,7 +639,7 @@ elif section == "3. Whitespace Analysis":
         title_x=0.5,
         xaxis_title="State",
         yaxis_title="Recommended Adds",
-        yaxis=dict(range=[0, max_val * 1.18]),  # Add 18% headroom for labels
+        yaxis=dict(range=[0, max_val * 1.18]),
         bargap=0.15,
         uniformtext_minsize=10,
         uniformtext_mode="hide",
@@ -680,13 +683,16 @@ elif section == "4. Feasibility: Path to 1,500 Units":
     The feasibility analysis treats the **1,500-unit goal as a market-implied carrying capacity**.
     
     **Methodology:**
-    - Applying 70% of the mature market's penetration to the full US population
-    - Results in a ceiling of **~1,550 units** — confirming the goal is attainable
+    - Applying 70% of the mature market's penetration rate to the full US population
+    - Results in a ceiling of **~1,550 units** — this conservative estimate confirms that the goal is not unattainable
     
     **Three Scenarios Modeled:**
-    - **Base Case:** Management expectations from January ICR conference (low-teens growth)
+    - **Base Case:** Management expectations from January's ICR conference (low-teens growth)
     - **Bull Case:** Accelerated execution with favorable real estate and kiosk adoption
     - **Bear Case:** Slower rollout due to execution challenges
+    
+    Given management's growth expectations, it's a fair estimate that **Shake Shack could reach 1,500 
+    company-operated locations in the long run within 20 years**, with the bull and bear cases being earlier or later.
     
     **Critical Execution Drivers:**
     - Kiosk adaptation
@@ -726,7 +732,7 @@ elif section == "4. Feasibility: Path to 1,500 Units":
     bull_yoy = calc_yoy_growth(bull_units)
     bear_yoy = calc_yoy_growth(bear_units)
     
-    # Scenario Chart - FIX APPLIED: Annotation moved to top right to avoid legend collision
+    # Scenario Chart
     st.subheader("Scenario Paths to 1,500 Company-Owned Locations")
     
     fig_scenario = go.Figure()
@@ -764,42 +770,16 @@ elif section == "4. Feasibility: Path to 1,500 Units":
         customdata=bear_yoy
     ))
     
-    # Target line - FIX: Pushed annotation to far right
+    # Target line
     fig_scenario.add_hline(y=1500, line_dash="dash", line_color="gray",
                           annotation_text="Mgmt Target: 1,500",
                           annotation_position="top right")
     
-    # Add milestone annotations
-    for scenario, units, color, name in [
-        ("Bull", bull_units, "#00A86B", "Bull"),
-        ("Base", base_units, "#7AB800", "Base"),
-        ("Bear", bear_units, "#CC0000", "Bear")
-    ]:
-        # Find when scenario crosses 1000 and 1500
-        for milestone in [1000, 1500]:
-            for i, u in enumerate(units):
-                if u >= milestone:
-                    fig_scenario.add_annotation(
-                        x=years[i],
-                        y=units[i],
-                        text=f"{name}: {milestone}",
-                        showarrow=True,
-                        arrowhead=2,
-                        arrowsize=0.8,
-                        arrowcolor=color,
-                        font=dict(size=9, color=color),
-                        ax=0,
-                        ay=-25 if name == "Bull" else (25 if name == "Bear" else 0),
-                        visible=False  # Hidden by default, shown via buttons
-                    )
-                    break
-    
     fig_scenario.update_layout(
-        title="Scenario Paths to 1,500 Company-Owned Shake Shack Locations<br><sup>(all scenarios start at 359 units in 2025)</sup>",
+        title="Scenario Paths to 1,500 Company-Owned Shake Shack Locations<br><sup>(all scenarios start at 359 units in 2025; chart shows first 10 years)</sup>",
         title_x=0.5,
         xaxis_title="Year",
         yaxis_title="Company-Owned Stores",
-        # Legend at bottom to avoid blocking lines
         legend=dict(
             orientation="h",
             yanchor="top",
@@ -853,7 +833,7 @@ elif section == "4. Feasibility: Path to 1,500 Units":
                 showactive=True,
                 x=0.5,
                 xanchor="center",
-                y=-0.35, # Moved below legend
+                y=-0.35,
                 yanchor="top"
             )
         ]
@@ -862,7 +842,7 @@ elif section == "4. Feasibility: Path to 1,500 Units":
     st.plotly_chart(fig_scenario, use_container_width=True)
     
     # Scenario Table
-    st.subheader("Scenario Projections Table")
+    st.subheader("Scenario Projections Table (First 10 Years)")
     paths_df = pd.DataFrame({
         "Year": years,
         "Base Case": base_units.round(0).astype(int),
@@ -876,6 +856,7 @@ elif section == "4. Feasibility: Path to 1,500 Units":
     with higher growth in the bull case and slower build-out in the bear case. 
     Illustrative paths are broadly anchored on management's long-term unit growth 
     framework discussed in the January investor presentation; they are not guidance.
+    The full path to 1,500 units may take up to 20 years depending on execution.
     """)
 
 # =============================================================================
@@ -885,15 +866,22 @@ elif section == "5. Competitive Context":
     st.header("5. Competitive Context")
     
     st.markdown("""
-    Shake Shack competes in the **premium fast-casual space** as opposed to mass QSR, making 
-    **Five Guys, BurgerFi, Smashburger, and Chipotle** more relevant comparables than McDonald's and Wendy's.
+    Shake Shack competes in the **premium fast-casual space** rather than mass QSR, making 
+    **Five Guys, BurgerFi, Smashburger, and Chipotle** more relevant comparables in locations than McDonald's and Wendy's.
     
-    States with heavy QSR clustering (Midwest, parts of Northeast) present higher saturation risk, 
-    but demand score analysis suggests the target customer is fairly unpenetrated in **high income, 
+    States with heavy QSR clustering (Midwest, parts of the Northeast) present higher saturation risk, 
+    but demand score analysis suggests the target customer is unpenetrated in **high-income, 
     fast-growing markets** such as the Sun Belt and Pacific Coast.
     """)
     
-    # Peer Comparison Chart - FIX APPLIED: Increased bottom margin to 180px and footnote to y=-0.5
+    # BurgerFi callout - NEW ADDITION per paper
+    st.warning("""
+    **Note on BurgerFi:** It is also material to note that one of the rivals in BurgerFi is experiencing 
+    financial distress, which could potentially add more to the market share increase in Florida, 
+    one of the targeted states.
+    """)
+    
+    # Peer Comparison Chart
     st.subheader("Better-Burger / Fast-Casual Peer Comparison (Total Locations)")
     
     peer_data = {
@@ -943,7 +931,7 @@ elif section == "5. Competitive Context":
         xaxis_tickangle=-30,
         yaxis=dict(
             title="Total Restaurants",
-            range=[0, max_val * 1.18],  # Add 18% headroom for labels
+            range=[0, max_val * 1.18],
             gridcolor="lightgray",
             gridwidth=0.5
         ),
@@ -955,12 +943,12 @@ elif section == "5. Competitive Context":
     fig_peers.add_annotation(
         text="*Smashburger and BurgerFi totals are approximate due to conflicting public data.",
         xref="paper", yref="paper",
-        x=0, y=-0.5, # FIX: Moved further down
+        x=0, y=-0.5,
         showarrow=False,
         font=dict(size=11, color="gray"),
         align="left"
     )
-    fig_peers.update_layout(margin=dict(b=180)) # FIX: Increased bottom margin
+    fig_peers.update_layout(margin=dict(b=180))
     
     st.plotly_chart(fig_peers, use_container_width=True)
     
@@ -970,7 +958,7 @@ elif section == "5. Competitive Context":
     col1, col2 = st.columns(2)
     
     with col1:
-        # FIX APPLIED: Shortened title and adjusted margins
+        # UPDATED: Changed Chipotle margin from 26.7% to 26.2% per paper
         margin_data = {
             "company": [
                 "Chipotle Mexican Grill",
@@ -978,7 +966,7 @@ elif section == "5. Competitive Context":
                 "BurgerFi",
                 "Smashburger"
             ],
-            "restaurant_margin_pct": [26.7, 21.4, 12.0, 9.0],
+            "restaurant_margin_pct": [26.2, 21.4, 12.0, 9.0],  # Changed from 26.7 to 26.2
             "color": ["#8B0000", "#43A047", "#000000", "#D32F2F"],
             "year": ["2024", "2024", "2024", "2024"],
             "source": ["10-K Filing", "10-K Filing", "Quarterly Report", "Jollibee Disclosures"]
@@ -1001,11 +989,10 @@ elif section == "5. Competitive Context":
                 showlegend=False
             ))
         
-        # Calculate proper y-axis range to prevent clipping
         max_margin = df_margins_sorted["restaurant_margin_pct"].max()
         
         fig_margins.update_layout(
-            title="Rest. Margins vs Peers", # Shortened
+            title="Rest. Margins vs Peers",
             title_x=0.5, 
             yaxis_title="Margin (%)",
             xaxis_title="", 
@@ -1023,7 +1010,6 @@ elif section == "5. Competitive Context":
         st.plotly_chart(fig_margins, use_container_width=True)
     
     with col2:
-        # FIX APPLIED: Shortened Title, removed x-axis overlap
         # Shake Shack Margin Trend
         margin_years = [2022, 2023, 2024]
         margins = [17.5, 19.9, 21.4]
@@ -1044,7 +1030,7 @@ elif section == "5. Competitive Context":
             name="Restaurant Margin"
         ))
         
-        # Add annotations for data labels (positioned above points)
+        # Add annotations for data labels
         for i, (year, margin) in enumerate(zip(margin_years, margins)):
             fig_margin_trend.add_annotation(
                 x=year,
@@ -1055,21 +1041,19 @@ elif section == "5. Competitive Context":
                 font=dict(size=12, color="#2E8B57")
             )
         
-        # Calculate proper y-axis range
         max_margin = max(margins)
         min_margin = min(margins)
         
         fig_margin_trend.update_layout(
-            title="Margin Expansion ('22-'24)", # Shortened
+            title="Margin Expansion ('22-'24)",
             title_x=0.5, 
-            # xaxis_title="Year", # REMOVED: Redundant and overlaps
             yaxis_title="Margin (%)",
             xaxis=dict(tickmode='array', tickvals=margin_years),
             plot_bgcolor='white',
             yaxis=dict(
                 gridcolor='lightgray', 
                 gridwidth=0.5,
-                range=[min_margin - 2, max_margin + 3]  # Add headroom for labels
+                range=[min_margin - 2, max_margin + 3]
             ),
             hovermode="x unified",
             margin=dict(t=80, b=80) 
@@ -1080,7 +1064,7 @@ elif section == "5. Competitive Context":
         fig_margin_trend.add_annotation(
             text=f"Total Improvement: +{total_improvement:.1f}pp",
             xref="paper", yref="paper",
-            x=0.5, y=-0.25, # Moved further down
+            x=0.5, y=-0.25,
             showarrow=False,
             font=dict(size=11, color="#2E8B57", weight="bold"),
             align="center"
@@ -1089,8 +1073,8 @@ elif section == "5. Competitive Context":
         st.plotly_chart(fig_margin_trend, use_container_width=True)
     
     st.info("""
-    **Key Insight:** Restaurant-level margin benchmarking shows Shake Shack gaining ground (21.4%), 
-    but not quite up to Chipotle's level (26.7%). The margin expansion trend from 17.5% to 21.4% 
+    **Key Insight:** Restaurant-level margin benchmarking shows Shake Shack gaining (21.4%), 
+    but not quite up to where Chipotle is (26.2%). The margin expansion trend from 17.5% to 21.4% 
     over 2022-2024 highlights operational efficiencies.
     """)
 
@@ -1101,7 +1085,7 @@ elif section == "6. Investment Applications":
     st.header("6. Investment Applications")
     
     st.markdown("""
-    From a **long/short investor's perspective**, the unit economics align with feasibility for long-term expansion.
+    From a **long/short investor's perspective**, the unit economics align with the feasibility for this long-term expansion.
     """)
     
     # Key valuation metrics
@@ -1114,19 +1098,33 @@ elif section == "6. Investment Applications":
         st.metric("Implied Value per Unit", "~$9.5M")
     
     st.markdown("""
-    With **strong margins despite input cost increases**, Shake Shack potentially is undervalued 
-    from their 52-week high. This creates a favorable setup if Shake Shack can execute on the growth 
-    plan management is targeting.
+    Shake Shack's stock is trading close to its 52-week low amid concerns about input prices and other 
+    cyclical or foundational factors.
+    """)
+    
+    # NEW ADDITION per paper - CFO change note
+    st.warning("""
+    **Management Change:** There has also been a recent change in management for the CFO position, 
+    which could create short-term uncertainty.
+    """)
+    
+    st.markdown("""
+    However, there is evidence that these concerns are mitigated by the potential scale of the units, 
+    leading to a larger market cap through expansion, along with promising margin increases from the 
+    implementation of other operational methods.
+    
+    The current stock price's potential value creates a favorable setup if Shake Shack can execute on the growth 
+    plan management aims to achieve.
     
     **Key Success Indicators:**
     - Kiosk conversion rates
     - Real estate selection quality
     - Operational throughput improvements
     
-    Coupled with base case growth expectations, these present **strong upside potential**.
+    These indicators, when combined with base growth expectations, present **substantial upside potential**.
     """)
     
-    # Revenue Growth vs Store Count - FIX APPLIED: Revenue labels INSIDE bars, increased Y axis range for clear separation
+    # Revenue Growth vs Store Count
     st.subheader("Revenue Growth vs. Store Count (2020-2024)")
     
     rev_data = pd.DataFrame({
@@ -1149,7 +1147,6 @@ elif section == "6. Investment Applications":
             y=rev_data["revenue"],
             name="Revenue ($M)",
             marker_color="#005030",
-            # Put revenue labels INSIDE to avoid collision with line chart
             text=rev_data["revenue"].apply(lambda x: f"${x:,}M"),
             textposition='inside', 
             textfont=dict(color='white', size=12),
@@ -1173,7 +1170,7 @@ elif section == "6. Investment Applications":
         )
     )
     
-    # Add annotations for units (positioned higher to avoid line overlap)
+    # Add annotations for units
     for i, row in rev_data.iterrows():
         fig_rev.add_annotation(
             x=row["year"],
@@ -1181,7 +1178,7 @@ elif section == "6. Investment Applications":
             yref="y2",
             text=f"<b>{row['units']}</b>",
             showarrow=False,
-            yshift=15, # Adjusted yshift
+            yshift=15,
             font=dict(size=11, color="black")
         )
     
@@ -1194,7 +1191,7 @@ elif section == "6. Investment Applications":
         title_x=0.5,
         yaxis=dict(
             title="Revenue ($M)",
-            range=[0, max_rev * 1.6],  # Increased headroom significantly so bars are lower
+            range=[0, max_rev * 1.6],
             gridcolor="lightgray",
             gridwidth=0.5
         ),
@@ -1207,7 +1204,6 @@ elif section == "6. Investment Applications":
             showgrid=False
         ),
         margin=dict(l=70, r=110, t=80, b=80), 
-        # FIX: Moved Legend to Top Center
         legend=dict(
             orientation="h",
             yanchor="bottom",
@@ -1267,8 +1263,8 @@ elif section == "7. Conclusion":
     st.header("7. Conclusion")
     
     st.markdown("""
-    The analysis supports the view that **Shake Shack has a credible path to achieving the 1,500 unit target**, 
-    and management's excitement is grounded in demographic and competitive fundamentals.
+    The analysis supports the view that **Shake Shack has a path to achieving the 1,500-unit target**, 
+    and management's excitement is credible and grounded in demographic and competitive fundamentals.
     
     **Strongest Prospective Markets:**
     - Favorable population dynamics
@@ -1282,21 +1278,24 @@ elif section == "7. Conclusion":
     **Investment Perspective:**
     - Current per-unit valuation is attractive
     - Meaningful whitespace remains
-    - Restaurant-level margins are expanding
+    - Restaurant-level margins are increasing
     - This provides a **compelling long-duration growth story**
     
     **Key to Success:**
-    - Executing a **kiosk-heavy, suburban-focused strategy** is critical to unlocking Shake Shack's full IRR potential
+    - Executing a **kiosk-heavy, suburban-focused strategy** is the key to unlocking Shake Shack's full IRR potential
     """)
     
     st.divider()
     
-    st.subheader("What I Would Do in the Real Environment")
+    st.subheader("Addendum — What I Would Do in the Real Environment")
     
     st.markdown("""
-    In the interest of brevity, here are additional measures I would take in a professional environment:
+    Given the nature of a case study, I wanted to provide additional measures in a live environment. 
+    I would also incorporate direct feedback loops with management, internal sector analysts, and 
+    sell-side coverage to continually update the model as new data points come in. Some examples are as follows:
     """)
     
+    # UPDATED: Added 5th column for M&A experience per paper
     col1, col2 = st.columns(2)
     
     with col1:
@@ -1306,23 +1305,28 @@ elif section == "7. Conclusion":
         - Expected mix between drive-thru, in-line, and urban formats
         - Regional differences in construction timelines and COGS inflation
         
-        **2. Direct Engagement with Team Analysts**
-        - Sanity check estimates and assumptions
-        - Dig deeper into valuation model gaps
-        - Leverage experience for future analysis
+        **2. Direct Engagement with Analysts on my Team**
+        - Understand the perspective of sanity checking estimates and assumptions
+        - Dig a bit deeper into the valuation model to see gaps in my process
+        - Leverage experience and learn more about the company to help drive analysis in the future
+        - Adjust the model and keep an open mind towards any other advice or explanations
+        
+        **3. Leverage Sell-Side Analysts and Other Sources of Information**
+        - Sentiment about expansion from the sell-side
+        - Any perceived disconnect between Shake Shack management and operational execution
+        - Leverage any information from former Shake Shack regional managers
         """)
     
     with col2:
         st.markdown("""
-        **3. Leverage Sell-Side and Other Sources**
-        - Sentiment about expansion from sell-side
-        - Any disconnect between management and execution
-        - Information from former Shake Shack regional managers
-        
-        **4. Validate Demand Score with Local Economics**
-        - CBRE retail vacancy rates
+        **4. Validate the Demand Score with Local Economics**
+        - CBRE retail vacancies
         - Foot traffic patterns
         - Household discretionary spend trends
+        
+        **5. Leverage Prior Experience in Food Service M&A**
+        - Potentially set up calls within compliance to learn more about the industry
+        - Understand risks holistically in the industry
         """)
 
 # =============================================================================
@@ -1443,7 +1447,7 @@ elif section == "8. Appendix: Supplemental Charts":
         fig_dumbbell.update_layout(
             title="Top 15 States: Closing the Whitespace Gap",
             xaxis_title="Number of Shake Shack Units",
-            yaxis=dict(autorange="reversed"), # Top potential at top
+            yaxis=dict(autorange="reversed"),
             plot_bgcolor="white",
             legend=dict(orientation="h", y=1.1, x=0.5, xanchor="center"),
             height=600,

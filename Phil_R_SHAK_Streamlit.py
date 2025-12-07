@@ -519,35 +519,28 @@ elif section == "2. Analytical Approach":
         plot_bgcolor="white",
         hovermode="x unified",
         xaxis_tickangle=-45,
-        margin=dict(l=60, r=40, t=80, b=120)
+        margin=dict(l=60, r=40, t=80, b=120),
+        showlegend=False  # Hide default legend
     )
     
-    # Add legend annotation at top
+    # Add manual legend with colored squares and labels properly aligned
+    # Dark green square for Top 10 Target States
     fig_demand.add_annotation(
-        text="■ Top 10 Target States    ■ Other States",
+        text="■ Top 10 Target States",
         xref="paper", yref="paper",
-        x=0.5, y=1.12,
+        x=0.35, y=1.10,
         showarrow=False,
-        font=dict(size=12, color="#333333"),
-        align="center"
+        font=dict(size=12, color="#005030"),
+        align="left"
     )
-    
-    # Add colored squares as separate annotations
+    # Light green square for Other States  
     fig_demand.add_annotation(
-        text="■",
+        text="■ Other States",
         xref="paper", yref="paper",
-        x=0.32, y=1.12,
+        x=0.58, y=1.10,
         showarrow=False,
-        font=dict(size=14, color="#005030"),
-        align="center"
-    )
-    fig_demand.add_annotation(
-        text="■",
-        xref="paper", yref="paper",
-        x=0.55, y=1.12,
-        showarrow=False,
-        font=dict(size=14, color="#7AB800"),
-        align="center"
+        font=dict(size=12, color="#7AB800"),
+        align="left"
     )
     
     st.plotly_chart(fig_demand, use_container_width=True)

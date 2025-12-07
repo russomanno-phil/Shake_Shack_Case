@@ -31,6 +31,14 @@ section = st.sidebar.radio(
     ]
 )
 
+# --- Sidebar Quick Stats ---
+st.sidebar.divider()
+st.sidebar.subheader("📊 Quick Stats")
+st.sidebar.metric("Current Units", "359", help="Company-operated locations as of Q3-25")
+st.sidebar.metric("Target Units", "1,500", help="Management's long-term goal")
+st.sidebar.metric("Market Cap", "$3.42B")
+st.sidebar.metric("Implied $/Unit", "~$9.5M")
+
 # --- Data Loading and Preparation ---
 @st.cache_data
 def load_and_prepare_data(file_path):
@@ -466,7 +474,9 @@ elif section == "2. Analytical Approach":
     - **−20% weight** on QSR Competition (higher competition = lower attractiveness)
     """)
     
-    # Demand Score Chart - FIXED: removed duplicate title, fixed legend position, extended y-axis for negative labels
+    # Demand Score Chart
+    st.subheader("Demand Score by State (Top 20)")
+    
     top_n = 20
     df_demand = df.sort_values("demand_score", ascending=False).head(top_n)
     
@@ -474,10 +484,10 @@ elif section == "2. Analytical Approach":
     fig_demand = go.Figure()
     
     # Color bars based on whether they're in top 10 target states
-    target_states = ["Texas", "California", "Florida", "Ohio", "Georgia", 
+    target_states_list = ["Texas", "California", "Florida", "Ohio", "Georgia", 
                      "Illinois", "North Carolina", "Michigan", "Washington", "Arizona"]
     
-    colors = ["#005030" if state in target_states else "#7AB800" for state in df_demand["state"]]
+    colors = ["#005030" if state in target_states_list else "#7AB800" for state in df_demand["state"]]
     
     fig_demand.add_trace(go.Bar(
         x=df_demand["state"],
@@ -496,11 +506,10 @@ elif section == "2. Analytical Approach":
     min_score = df_demand["demand_score"].min()
     
     fig_demand.update_layout(
-        # No title here - using st.subheader above instead to avoid duplication
         xaxis_title="State",
         yaxis_title="Demand Score (z-score composite)",
         yaxis=dict(
-            range=[min_score - 0.3, max_score + 0.25],  # Extended range for negative labels
+            range=[min_score - 0.35, max_score + 0.3],  # Extended range for all labels
             gridcolor="lightgray",
             gridwidth=0.5
         ),
@@ -510,29 +519,37 @@ elif section == "2. Analytical Approach":
         plot_bgcolor="white",
         hovermode="x unified",
         xaxis_tickangle=-45,
-        # Legend positioned at top right, inside the chart
-        legend=dict(
-            orientation="h",
-            yanchor="bottom",
-            y=1.02,
-            xanchor="center",
-            x=0.5,
-            bgcolor="rgba(255,255,255,0.8)"
-        ),
-        margin=dict(l=60, r=40, t=60, b=120)  # Reduced bottom margin since legend moved to top
+        margin=dict(l=60, r=40, t=80, b=120)
     )
     
-    # Add custom legend using shapes and annotations
+    # Add legend annotation at top
     fig_demand.add_annotation(
-        text="<b>■</b> Top 10 Target States   <span style='color:#7AB800'><b>■</b></span> Other States",
+        text="■ Top 10 Target States    ■ Other States",
         xref="paper", yref="paper",
-        x=0.5, y=1.08,
+        x=0.5, y=1.12,
         showarrow=False,
-        font=dict(size=12),
+        font=dict(size=12, color="#333333"),
         align="center"
     )
     
-    st.subheader("Demand Score by State (Top 20)")
+    # Add colored squares as separate annotations
+    fig_demand.add_annotation(
+        text="■",
+        xref="paper", yref="paper",
+        x=0.32, y=1.12,
+        showarrow=False,
+        font=dict(size=14, color="#005030"),
+        align="center"
+    )
+    fig_demand.add_annotation(
+        text="■",
+        xref="paper", yref="paper",
+        x=0.55, y=1.12,
+        showarrow=False,
+        font=dict(size=14, color="#7AB800"),
+        align="center"
+    )
+    
     st.plotly_chart(fig_demand, use_container_width=True)
 
 # =============================================================================
@@ -657,7 +674,6 @@ elif section == "3. Whitespace Analysis":
         yaxis_gridwidth=0.5
     )
     
-    # Add range slider for interactivity
     fig_whitespace.update_xaxes(
         tickangle=-30,
         categoryorder="total descending"
@@ -666,20 +682,20 @@ elif section == "3. Whitespace Analysis":
     st.plotly_chart(fig_whitespace, use_container_width=True)
     
     # Full Expansion Table
-    st.subheader("Full Expansion Recommendations")
-    st.dataframe(
-        df[['state', 'current_company_shacks', 'potential_shacks', 'white_space', 
-            'recommended_adds', 'recommended_total']].sort_values(
-            'recommended_adds', ascending=False
-        ).style.format({
-            'current_company_shacks': '{:.0f}',
-            'potential_shacks': '{:.1f}',
-            'white_space': '{:.1f}',
-            'recommended_adds': '{:.0f}',
-            'recommended_total': '{:.0f}'
-        }),
-        use_container_width=True
-    )
+    with st.expander("📋 View Full Expansion Recommendations Table"):
+        st.dataframe(
+            df[['state', 'current_company_shacks', 'potential_shacks', 'white_space', 
+                'recommended_adds', 'recommended_total']].sort_values(
+                'recommended_adds', ascending=False
+            ).style.format({
+                'current_company_shacks': '{:.0f}',
+                'potential_shacks': '{:.1f}',
+                'white_space': '{:.1f}',
+                'recommended_adds': '{:.0f}',
+                'recommended_total': '{:.0f}'
+            }),
+            use_container_width=True
+        )
 
 # =============================================================================
 # SECTION 4: FEASIBILITY - PATH TO 1,500 UNITS
@@ -791,7 +807,7 @@ elif section == "4. Feasibility: Path to 1,500 Units":
         legend=dict(
             orientation="h",
             yanchor="top",
-            y=-0.2,
+            y=-0.15,
             xanchor="center",
             x=0.5,
             bgcolor="rgba(255,255,255,0.8)",
@@ -806,58 +822,31 @@ elif section == "4. Feasibility: Path to 1,500 Units":
             tick0=2025,
             dtick=1
         ),
-        margin=dict(b=100)
-    )
-    
-    # Add toggle buttons for scenarios
-    fig_scenario.update_layout(
-        updatemenus=[
-            dict(
-                type="buttons",
-                direction="left",
-                buttons=[
-                    dict(
-                        args=[{"visible": [True, True, True]}],
-                        label="All Scenarios",
-                        method="update"
-                    ),
-                    dict(
-                        args=[{"visible": [True, False, False]}],
-                        label="Base Only",
-                        method="update"
-                    ),
-                    dict(
-                        args=[{"visible": [False, True, False]}],
-                        label="Bull Only",
-                        method="update"
-                    ),
-                    dict(
-                        args=[{"visible": [False, False, True]}],
-                        label="Bear Only",
-                        method="update"
-                    )
-                ],
-                pad={"r": 10, "t": 10},
-                showactive=True,
-                x=0.5,
-                xanchor="center",
-                y=-0.35,
-                yanchor="top"
-            )
-        ]
+        margin=dict(b=120)
     )
     
     st.plotly_chart(fig_scenario, use_container_width=True)
     
-    # Scenario Table
-    st.subheader("Scenario Projections Table (First 10 Years)")
+    # Scenario selector
+    st.subheader("Scenario Projections Table")
+    
+    scenario_choice = st.radio(
+        "Select scenario to highlight:",
+        ["All Scenarios", "Base Case", "Bull Case", "Bear Case"],
+        horizontal=True
+    )
+    
     paths_df = pd.DataFrame({
         "Year": years,
         "Base Case": base_units.round(0).astype(int),
         "Bull Case": bull_units.round(0).astype(int),
         "Bear Case": bear_units.round(0).astype(int)
     })
-    st.dataframe(paths_df, use_container_width=True)
+    
+    if scenario_choice == "All Scenarios":
+        st.dataframe(paths_df, use_container_width=True)
+    else:
+        st.dataframe(paths_df[["Year", scenario_choice]], use_container_width=True)
     
     st.caption("""
     **Note:** Base scenario assumes low-teens annual growth in company-owned units, 
@@ -882,7 +871,7 @@ elif section == "5. Competitive Context":
     fast-growing markets** such as the Sun Belt and Pacific Coast.
     """)
     
-    # BurgerFi callout - NEW ADDITION per paper
+    # BurgerFi callout
     st.warning("""
     **Note on BurgerFi:** It is also material to note that one of the rivals in BurgerFi is experiencing 
     financial distress, which could potentially add more to the market share increase in Florida, 
@@ -945,18 +934,18 @@ elif section == "5. Competitive Context":
         ),
         xaxis=dict(title=""),
         plot_bgcolor="white",
-        hovermode="x unified"
+        hovermode="x unified",
+        margin=dict(b=120)
     )
     
     fig_peers.add_annotation(
         text="*Smashburger and BurgerFi totals are approximate due to conflicting public data.",
         xref="paper", yref="paper",
-        x=0, y=-0.5,
+        x=0, y=-0.35,
         showarrow=False,
         font=dict(size=11, color="gray"),
         align="left"
     )
-    fig_peers.update_layout(margin=dict(b=180))
     
     st.plotly_chart(fig_peers, use_container_width=True)
     
@@ -966,7 +955,6 @@ elif section == "5. Competitive Context":
     col1, col2 = st.columns(2)
     
     with col1:
-        # UPDATED: Changed Chipotle margin from 26.7% to 26.2% per paper
         margin_data = {
             "company": [
                 "Chipotle Mexican Grill",
@@ -974,7 +962,7 @@ elif section == "5. Competitive Context":
                 "BurgerFi",
                 "Smashburger"
             ],
-            "restaurant_margin_pct": [26.2, 21.4, 12.0, 9.0],  # Changed from 26.7 to 26.2
+            "restaurant_margin_pct": [26.2, 21.4, 12.0, 9.0],
             "color": ["#8B0000", "#43A047", "#000000", "#D32F2F"],
             "year": ["2024", "2024", "2024", "2024"],
             "source": ["10-K Filing", "10-K Filing", "Quarterly Report", "Jollibee Disclosures"]
@@ -1000,7 +988,7 @@ elif section == "5. Competitive Context":
         max_margin = df_margins_sorted["restaurant_margin_pct"].max()
         
         fig_margins.update_layout(
-            title="Rest. Margins vs Peers",
+            title="Restaurant Margins vs Peers",
             title_x=0.5, 
             yaxis_title="Margin (%)",
             xaxis_title="", 
@@ -1022,7 +1010,6 @@ elif section == "5. Competitive Context":
         margin_years = [2022, 2023, 2024]
         margins = [17.5, 19.9, 21.4]
         
-        # Calculate YoY improvement
         margin_improvement = [0, margins[1] - margins[0], margins[2] - margins[1]]
         
         fig_margin_trend = go.Figure()
@@ -1053,7 +1040,7 @@ elif section == "5. Competitive Context":
         min_margin = min(margins)
         
         fig_margin_trend.update_layout(
-            title="Margin Expansion ('22-'24)",
+            title="SHAK Margin Expansion ('22-'24)",
             title_x=0.5, 
             yaxis_title="Margin (%)",
             xaxis=dict(tickmode='array', tickvals=margin_years),
@@ -1072,9 +1059,9 @@ elif section == "5. Competitive Context":
         fig_margin_trend.add_annotation(
             text=f"Total Improvement: +{total_improvement:.1f}pp",
             xref="paper", yref="paper",
-            x=0.5, y=-0.25,
+            x=0.5, y=-0.2,
             showarrow=False,
-            font=dict(size=11, color="#2E8B57", weight="bold"),
+            font=dict(size=11, color="#2E8B57"),
             align="center"
         )
         
@@ -1110,7 +1097,7 @@ elif section == "6. Investment Applications":
     cyclical or foundational factors.
     """)
     
-    # NEW ADDITION per paper - CFO change note
+    # CFO change note
     st.warning("""
     **Management Change:** There has also been a recent change in management for the CFO position, 
     which could create short-term uncertainty.
@@ -1163,7 +1150,7 @@ elif section == "6. Investment Applications":
         )
     )
 
-    # Units line with offset labels to prevent overlap
+    # Units line
     fig_rev.add_trace(
         go.Scatter(
             x=rev_data["year"],
@@ -1227,39 +1214,6 @@ elif section == "6. Investment Applications":
         hovermode="x unified"
     )
     
-    # Add buttons for interactivity
-    fig_rev.update_layout(
-        updatemenus=[
-            dict(
-                type="buttons",
-                direction="left",
-                buttons=[
-                    dict(
-                        args=[{"visible": [True, True]}],
-                        label="Both",
-                        method="update"
-                    ),
-                    dict(
-                        args=[{"visible": [True, False]}],
-                        label="Revenue Only",
-                        method="update"
-                    ),
-                    dict(
-                        args=[{"visible": [False, True]}],
-                        label="Units Only",
-                        method="update"
-                    )
-                ],
-                pad={"r": 10, "t": 10},
-                showactive=True,
-                x=0.5,
-                xanchor="center",
-                y=-0.15,
-                yanchor="top"
-            )
-        ]
-    )
-    
     st.plotly_chart(fig_rev, use_container_width=True)
     
     st.caption("**Evidence of scaling economics:** Revenue has grown from $523M to $1.31B (150%+ growth) while units grew from 183 to 329 (80% growth), demonstrating strong same-store sales growth alongside unit expansion.")
@@ -1303,7 +1257,6 @@ elif section == "7. Conclusion":
     sell-side coverage to continually update the model as new data points come in. Some examples are as follows:
     """)
     
-    # UPDATED: Added 5th column for M&A experience per paper
     col1, col2 = st.columns(2)
     
     with col1:
@@ -1345,25 +1298,22 @@ elif section == "8. Appendix: Supplemental Charts":
     st.markdown("Explore the demographic and competitive data driving the model.")
     
     # --- Data Prep for Appendix ---
-    # Add Region Mapping for deeper analysis
     region_map = {
         'Northeast': ['CT', 'ME', 'MA', 'NH', 'RI', 'VT', 'NJ', 'NY', 'PA'],
         'Midwest': ['IL', 'IN', 'MI', 'OH', 'WI', 'IA', 'KS', 'MN', 'MO', 'NE', 'ND', 'SD'],
         'South': ['DE', 'FL', 'GA', 'MD', 'NC', 'SC', 'VA', 'DC', 'WV', 'AL', 'KY', 'MS', 'TN', 'AR', 'LA', 'OK', 'TX'],
         'West': ['AZ', 'CO', 'ID', 'MT', 'NV', 'NM', 'UT', 'WY', 'AK', 'CA', 'HI', 'OR', 'WA']
     }
-    # Invert map for easy lookup
     state_to_region = {state: region for region, states in region_map.items() for state in states}
     df['region'] = df['state_abbrev'].map(state_to_region).fillna('Other')
     
-    # Identify Top 10 Targets for highlighting
     top_10_states = ["TX", "CA", "FL", "OH", "GA", "IL", "NC", "MI", "WA", "AZ"]
     df['category'] = df['state_abbrev'].apply(lambda x: 'Top 10 Target' if x in top_10_states else 'Other State')
 
     # --- TABBED INTERFACE ---
     tab1, tab2, tab3, tab4 = st.tabs(["💰 Income & Demographics", "📈 The Growth Runway", "🗺️ Regional Mix", "🔢 Raw Data"])
 
-    # TAB 1: INCOME & DEMOGRAPHICS (Interactive Scatter)
+    # TAB 1: INCOME & DEMOGRAPHICS
     with tab1:
         st.subheader("Correlation Analysis: What drives a Shake Shack market?")
         
@@ -1411,17 +1361,15 @@ elif section == "8. Appendix: Supplemental Charts":
         st.plotly_chart(fig_bubble, use_container_width=True)
         st.caption("Size of bubble represents State Population. Green trendlines indicate correlation.")
 
-    # TAB 2: THE GROWTH RUNWAY (Dumbbell Chart)
+    # TAB 2: THE GROWTH RUNWAY
     with tab2:
         st.subheader("The Growth Runway: Current vs. Potential")
         st.markdown("This chart visualizes the **gap** between current footprint and market capacity.")
 
-        # Filter to top 15 by potential to keep chart readable
         top_potential = df.sort_values("potential_shacks", ascending=False).head(15)
         
         fig_dumbbell = go.Figure()
 
-        # The Line (The Runway)
         for i, row in top_potential.iterrows():
             fig_dumbbell.add_trace(go.Scatter(
                 x=[row['current_company_shacks'], row['potential_shacks']],
@@ -1432,7 +1380,6 @@ elif section == "8. Appendix: Supplemental Charts":
                 hoverinfo='skip'
             ))
 
-        # Dot: Current
         fig_dumbbell.add_trace(go.Scatter(
             x=top_potential['current_company_shacks'],
             y=top_potential['state'],
@@ -1442,7 +1389,6 @@ elif section == "8. Appendix: Supplemental Charts":
             hovertemplate="<b>%{y}</b><br>Current: %{x:.0f}<extra></extra>"
         ))
 
-        # Dot: Potential
         fig_dumbbell.add_trace(go.Scatter(
             x=top_potential['potential_shacks'],
             y=top_potential['state'],
@@ -1463,17 +1409,15 @@ elif section == "8. Appendix: Supplemental Charts":
         )
         st.plotly_chart(fig_dumbbell, use_container_width=True)
 
-    # TAB 3: REGIONAL MIX (Sunburst/Donut)
+    # TAB 3: REGIONAL MIX
     with tab3:
         st.subheader("Expansion by Census Region")
         
-        # Aggregate data by region
         region_group = df.groupby("region")[["recommended_adds", "current_company_shacks"]].sum().reset_index()
         
         col1, col2 = st.columns(2)
         
         with col1:
-            # Donut Chart for Recommended Adds
             fig_donut = px.pie(
                 region_group,
                 values="recommended_adds",
@@ -1493,20 +1437,21 @@ elif section == "8. Appendix: Supplemental Charts":
             - **The South** (TX, FL, GA, NC) represents the largest singular block of whitespace opportunity.
             - **The West** is driven primarily by California's massive capacity and under-penetration relative to New York.
             """)
-            st.metric("Total Recommended Adds (South)", f"{int(region_group[region_group['region']=='South']['recommended_adds'].iloc[0])}")
+            south_adds = region_group[region_group['region']=='South']['recommended_adds']
+            if len(south_adds) > 0:
+                st.metric("Total Recommended Adds (South)", f"{int(south_adds.iloc[0])}")
 
     # TAB 4: RAW DATA
     with tab4:
         st.subheader("Data Explorer")
         st.markdown("Filter and sort the underlying dataset used for the whitespace calculations.")
         
-        # Interactive DataFrame
         st.dataframe(
             df[[
                 'state', 'region', 'population', 'median_income', 
                 'current_company_shacks', 'potential_shacks', 
                 'recommended_adds', 'demand_score'
-            ]].style.background_gradient(cmap="Greens", subset=['recommended_adds', 'demand_score']),
+            ]].sort_values('recommended_adds', ascending=False),
             use_container_width=True,
             column_config={
                 "median_income": st.column_config.NumberColumn("Income", format="$%d"),

@@ -13,7 +13,7 @@ st.set_page_config(
 )
 
 st.title("🍔 Shake Shack (SHAK) Investment Analysis")
-st.caption("Phil Russomanno | Millennium Case Study Submission | 12/7/2025")
+st.caption("Phil Russomanno |Case Study Submission | 12/7/2025")
 
 # --- Sidebar Navigation ---
 st.sidebar.title("Navigation")
@@ -1457,3 +1457,4 @@ elif section == "8. Appendix: Supplemental Charts":
 # Footer
 st.divider()
 st.caption("Data sources: Shake Shack 10-K filings, US Census Bureau (ACS 2023, CBP 2022)")
+
